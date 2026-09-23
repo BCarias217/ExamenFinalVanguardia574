@@ -44,6 +44,10 @@ namespace TicketExpress.Controllers
             if (error != null)
                 return BadRequest(error);
 
+            var evento = await _context.Eventos.FindAsync(boleto.EventoId);
+            if (evento == null)
+                return NotFound("El Evento indicado no existe.");
+
             boleto.NombreComprador = TextNormalizer.Normalizar(boleto.NombreComprador);
             boleto.FechaCompra = DateTime.Now;
 
